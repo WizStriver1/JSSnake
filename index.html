@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.snake-wrap {
+    background: #0ff;
+    width: 100%;
+    height: 100%;
+}
+</style>
+</head>
+<body>
+<div class="snake-wrap"></div>
+
+<script>
+
+function Selector(selector) {
+    this.selector = selector;
+    this.init();
+}
+Selector.prototype = {
+    init: function() {
+        var __object2__ = {};
+        switch(__object2__.toString.call(this.selector)) {
+            case '[object Function]':
+                this.funcinit();
+                break;
+            case '[object String]':
+                this.strinit();
+                break;
+            default:
+                break;
+        }
+    },
+    funcinit: function() {
+        window.onload = this.selector;
+    },
+    strinit: function() {
+        if(selector.indexOf('.') != -1) {
+
+        } else if(selector.indexOf('#') != -1) {
+
+        } else {
+            
+        }
+    }
+};
+$ = function(selector) {
+    return new Selector(selector);
+}
+
+$(function() {
+
+});
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
