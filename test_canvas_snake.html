@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="can" height="400" width="400" style="background-color: black;">对不起，您的浏览器不支持canvas</canvas>
+    <script>
+        var snake = [41, 40],
+            direction = 1,
+            food = 42,
+            speed = 150,
+            n,
+            box = document.getElementById('can').getContext('2d');
+        function draw(seat, color) {
+            box.fillStyle = color;
+            box.fillRect(seat % 20 * 20 + 1, ~~(seat / 20) * 20 + 1, 18, 18);
+            console.log(seat % 20 * 20 + 1, ~~(seat / 20) * 20 + 1)
+        }
+        function drawfood() {
+            if(Math.random() < 0.2) {
+                draw(food, 'red');
+                speed = speed > 20 ? speed - 10 : 10;
+            } else {
+                draw(food, 'yellow');
+                speed = speed > 15 ? speed - 5 : 10;
+            }
+        }
+        document.onkeydown = function(evt) {
+            direction = snake[1] - snake[0] == (n = [-1, -20, 1, 20][(evt || event).keyCode - 37] || direction) ? direction : n;
+        }
+        !function() {
+            snake.unshift(n = snake[0] + direction);
+            if(snake.indexOf(n, 1) > 0 || //crash yourself
+                n < 0 || //over top
+                n > 399 || //over bottom
+                direction == 1 && n % 20 == 0 || //over right
+                direction == -1 && n & 20 == 19) { //over left
+                return alert('game over');
+            }
+            draw(n, "lime");
+            if(n == food) {
+                while(snake.indexOf(food = ~~(Math.random() * 400)) > 0);
+                drawfood();
+            } else {
+                draw(snake.pop(), "black");
+            }
+            setTimeout(arguments.callee, speed);
+        }();
+    </script>
+</body>
+</html>
